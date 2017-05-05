@@ -1,42 +1,45 @@
 package PubVote
 
+import com.geospock.pubvote.people.People
+import com.geospock.pubvote.places.Place
 import com.geospock.pubvote.voters.SplittingVoter
 import com.geospock.pubvote.voters.StandardVoteInput
 
 fun main(args: Array<String>) {
-    println("Output: ")
-    print(SplittingVoter().runVote(StandardVoteInput(
-            listOf("Kai", "Christoph", "James", "Xavi", "Jon", "Bob", "Artem", "David W", "Huw", "Katie", "Steve", "David B", "Benita", "Andre", "Felix"),
+    print(SplittingVoter(8).runVote(StandardVoteInput(
+            listOf(People.KAI, People.CHRISTOPH, People.JAMES_G, People.XAVI, People.JON, People.BOB, People.ARTEM,
+                    People.DAVID_W, People.HUW, People.KATIE, People.STEVE, People.DAVID_B, People.BENITA, People.ANDRE,
+                    People.FELIX),
             mapOf(
-                    "Steve" to mapOf(
-                            "Wrestlers" to 5,
-                            "Fort Saint George" to 5
+                    People.STEVE to mapOf(
+                            Place.WRESTLERS to 5,
+                            Place.FORT_SAINT_GEORGE to 5
                     ),
-                    "David W" to mapOf(
-                            "Haymakers" to 3,
-                            "Wrestlers" to 3,
-                            "Fort Saint George" to 4
+                    People.DAVID_W to mapOf(
+                            Place.HAYMAKERS to 3,
+                            Place.WRESTLERS to 3,
+                            Place.FORT_SAINT_GEORGE to 4
                     ),
-                    "James" to mapOf(
-                            "Wrestlers" to 5,
-                            "Fort Saint George" to 5
+                    People.JAMES_G to mapOf(
+                            Place.WRESTLERS to 5,
+                            Place.FORT_SAINT_GEORGE to 5
                     ),
-                    "Andre" to mapOf(
-                            "Fort Saint George" to 5,
-                            "Green Dragon" to 5
+                    People.ANDRE to mapOf(
+                            Place.FORT_SAINT_GEORGE to 5,
+                            Place.GREEN_DRAGON to 5
                     ),
-                    "Benita" to mapOf(
-                            "Wrestlers" to 5,
-                            "The Old Spring" to 5
+                    People.BENITA to mapOf(
+                            Place.WRESTLERS to 5,
+                            Place.THE_OLD_SPRING to 5
                     ),
-                    "Christoph" to mapOf(
-                            "The Old Spring" to 5,
-                            "Fort Saint George" to 5
+                    People.CHRISTOPH to mapOf(
+                            Place.THE_OLD_SPRING to 5,
+                            Place.FORT_SAINT_GEORGE to 5
                     ),
-                    "Katie" to mapOf(
-                            "Wrestlers" to 3,
-                            "The Old Spring" to 4,
-                            "Polonia" to 3
+                    People.KATIE to mapOf(
+                            Place.WRESTLERS to 3,
+                            Place.THE_OLD_SPRING to 4,
+                            Place.POLONIA to 3
                     )
             ))))
 }

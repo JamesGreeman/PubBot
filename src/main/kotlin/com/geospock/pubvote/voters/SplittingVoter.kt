@@ -1,20 +1,19 @@
 package com.geospock.pubvote.voters
 
+import com.geospock.pubvote.people.People
+import com.geospock.pubvote.places.Place
 import java.util.Collections
 import java.util.Random
 
-class SplittingVoter : Voter<StandardVoteInput> {
+class SplittingVoter(val maxGroupSize: Int) : Voter<StandardVoteInput> {
+    val paddingValue = maxGroupSize - 1
 
-    companion object {
-        val maxGroupSize = 3
-        val paddingValue = maxGroupSize - 1
-    }
 
     override fun runVote(input: StandardVoteInput): String {
         val split = splitList(input.attending)
 
         val builder = StringBuilder("Groups are: \n")
-        val groupTotals = mutableMapOf<String, Map<String, Int>>()
+        val groupTotals = mutableMapOf<String, Map<Place, Int>>()
         var groupName = 1
         split.forEach {
             builder.appendln("Group $groupName: $it")
@@ -23,15 +22,15 @@ class SplittingVoter : Voter<StandardVoteInput> {
         }
 
         var done = false
-        val outputs = mutableMapOf<String, Pair<String, StringBuilder>>()
-        while (!done){
+        val outputs = mutableMapOf<String, Pair<Place, StringBuilder>>()
+        while (!done) {
             done = true;
-            val choices = mutableSetOf<String>()
+            val choices = mutableSetOf<Place>()
             groupTotals.forEach({ groupName, totals ->
                 val groupTotal = totals.values.sum()
                 val randomNumber = Random().nextInt(groupTotal);
                 val (choice, groupBuilder) = runGroupVote(randomNumber, totals)
-                if (choices.contains(choice)){
+                if (choices.contains(choice)) {
                     done = false;
                 }
                 choices.add(choice)
@@ -48,8 +47,8 @@ class SplittingVoter : Voter<StandardVoteInput> {
         return builder.toString()
     }
 
-    fun totalVote(group : List<String>, votes : Map<String, Map<String, Int>>) : Map<String, Int>{
-        val totals = mutableMapOf<String, Int>()
+    fun totalVote(group: List<People>, votes: Map<People, Map<Place, Int>>): Map<Place, Int> {
+        val totals = mutableMapOf<Place, Int>()
 
         group.forEach { person ->
             val personVotes = votes[person]
@@ -57,7 +56,7 @@ class SplittingVoter : Voter<StandardVoteInput> {
                 val total = personVotes.values.sum()
                 if (total == 10) {
                     personVotes.forEach({ pub, vote ->
-                        val current = totals.getOrPut(pub, {0})
+                        val current = totals.getOrPut(pub, { 0 })
                         totals.put(pub, current + vote)
                     })
                 } else {
@@ -68,39 +67,39 @@ class SplittingVoter : Voter<StandardVoteInput> {
         return totals
     }
 
-    private fun runGroupVote(value: Int, votes : Map<String, Int>) : Pair<String, StringBuilder>{
+    private fun runGroupVote(value: Int, votes: Map<Place, Int>): Pair<Place, StringBuilder> {
         val line0 = StringBuilder("0")
         val line1 = StringBuilder("|")
         val line2 = StringBuilder("|")
         val line3 = StringBuilder("|")
         val line4 = StringBuilder()
         val key = StringBuilder()
-        var choice = ""
+        var choice: Place = Place.NONE
         var currentTotal = 0
         var id = 'A'
         var marked = false
-        for ((key1, marks) in votes) {
+        votes.forEach({ (place, vote) ->
             key.append(id)
             key.append(" - ")
-            key.append(key1)
+            key.append(place)
             key.append("\n")
-            currentTotal += marks
+            currentTotal += vote
 
             if (value < currentTotal && !marked) {
-                val positionToMark = line3.length + value - currentTotal + marks
+                val positionToMark = line3.length + value - currentTotal + vote
                 padToLength(line3, positionToMark, " ")
                 padToLength(line4, positionToMark, " ")
                 line3.append("^")
                 line4.append(value)
                 marked = true
-                choice = key1
+                choice = place
             }
 
 
-            val requiredLength = line1.length + marks
+            val requiredLength = line1.length + vote
             padToLength(line0, requiredLength, " ")
-            padToLength(line1, line1.length + marks / 2, " ")
-            if (marks > 0) {
+            padToLength(line1, line1.length + vote / 2, " ")
+            if (vote > 0) {
                 line1.append(id)
             }
             id++
@@ -108,13 +107,13 @@ class SplittingVoter : Voter<StandardVoteInput> {
             padToLength(line2, requiredLength, "-")
             padToLength(line3, requiredLength, " ")
 
-            if (marks > 0) {
+            if (vote > 0) {
                 line0.append(currentTotal)
             }
             line1.append("|")
             line2.append("|")
             line3.append("|")
-        }
+        })
 
         val builder = StringBuilder("Random number is: $value \n")
         builder.appendln(line0)
@@ -123,7 +122,6 @@ class SplittingVoter : Voter<StandardVoteInput> {
         builder.appendln(line3)
         builder.appendln(line4)
         builder.appendln(key)
-
         return choice to builder
     }
 
@@ -134,7 +132,7 @@ class SplittingVoter : Voter<StandardVoteInput> {
         }
     }
 
-    fun splitList(attending: List<String>): List<List<String>> {
+    fun splitList(attending: List<People>): List<List<People>> {
 
         val groups = (attending.size + paddingValue) / maxGroupSize
         val groupSize = (attending.size + groups - 1) / groups
