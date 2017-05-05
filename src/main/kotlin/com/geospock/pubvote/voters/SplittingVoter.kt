@@ -14,33 +14,33 @@ class SplittingVoter(val maxGroupSize: Int) : Voter<StandardVoteInput> {
 
         val builder = StringBuilder("Groups are: \n")
         val groupTotals = mutableMapOf<String, Map<Place, Int>>()
-        var groupName = 1
-        split.forEach {
-            builder.appendln("Group $groupName: $it")
-            groupTotals["" + groupName] = totalVote(it, input.votes);
-            groupName++
+
+        split.forEachIndexed { index, members ->
+            val groupName = index + 1
+            builder.appendln("Group $groupName: $members")
+            groupTotals[groupName.toString()] = totalVote(members, input.votes)
         }
 
         var done = false
-        val outputs = mutableMapOf<String, Pair<Place, StringBuilder>>()
+        val outputs = mutableMapOf<String, Outcome>()
         while (!done) {
-            done = true;
+            done = true
             val choices = mutableSetOf<Place>()
             groupTotals.forEach({ groupName, totals ->
                 val groupTotal = totals.values.sum()
-                val randomNumber = Random().nextInt(groupTotal);
-                val (choice, groupBuilder) = runGroupVote(randomNumber, totals)
-                if (choices.contains(choice)) {
-                    done = false;
+                val randomNumber = Random().nextInt(groupTotal)
+                val outcome = runGroupVote(randomNumber, totals)
+                if (choices.contains(outcome.choice)) {
+                    done = false
                 }
-                choices.add(choice)
-                outputs[groupName] = choice to groupBuilder
+                choices.add(outcome.choice)
+                outputs[groupName] = outcome
             })
         }
 
-        outputs.forEach({ groupName, (choice, groupBuilder) ->
+        outputs.forEach({ groupName, (choice, table) ->
             builder.appendln("\n\nGroup $groupName summary")
-            builder.appendln(groupBuilder)
+            builder.appendln(table)
             builder.appendln("Group $groupName is going to $choice")
         })
 
@@ -67,7 +67,9 @@ class SplittingVoter(val maxGroupSize: Int) : Voter<StandardVoteInput> {
         return totals
     }
 
-    private fun runGroupVote(value: Int, votes: Map<Place, Int>): Pair<Place, StringBuilder> {
+    private data class Outcome(val choice: Place, val table: String)
+
+    private fun runGroupVote(value: Int, votes: Map<Place, Int>): Outcome {
         val line0 = StringBuilder("0")
         val line1 = StringBuilder("|")
         val line2 = StringBuilder("|")
@@ -122,7 +124,7 @@ class SplittingVoter(val maxGroupSize: Int) : Voter<StandardVoteInput> {
         builder.appendln(line3)
         builder.appendln(line4)
         builder.appendln(key)
-        return choice to builder
+        return Outcome(choice, builder.toString())
     }
 
 
