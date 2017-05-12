@@ -2,70 +2,86 @@ package PubVote
 
 import com.geospock.pubvote.GroupSplitter
 import com.geospock.pubvote.people.People
+import com.geospock.pubvote.people.People.ANDRE
+import com.geospock.pubvote.people.People.ARTEM
+import com.geospock.pubvote.people.People.BENITA
+import com.geospock.pubvote.people.People.BOB
+import com.geospock.pubvote.people.People.CHRISTOPH
+import com.geospock.pubvote.people.People.DAVID_B
+import com.geospock.pubvote.people.People.DAVID_W
+import com.geospock.pubvote.people.People.FELIX
+import com.geospock.pubvote.people.People.HUW
+import com.geospock.pubvote.people.People.JAMES_G
+import com.geospock.pubvote.people.People.JON
+import com.geospock.pubvote.people.People.KAI
+import com.geospock.pubvote.people.People.KATIE
+import com.geospock.pubvote.people.People.STEVE
+import com.geospock.pubvote.people.People.XAVI
 import com.geospock.pubvote.places.Place
+import com.geospock.pubvote.places.Place.FORT_SAINT_GEORGE
+import com.geospock.pubvote.places.Place.GREEN_DRAGON
+import com.geospock.pubvote.places.Place.HAYMAKERS
+import com.geospock.pubvote.places.Place.POLONIA
+import com.geospock.pubvote.places.Place.THE_OLD_SPRING
+import com.geospock.pubvote.places.Place.WRESTLERS
 import com.geospock.pubvote.voters.StandardVoteInput
 import com.geospock.pubvote.voters.WeightedRandomVoter
 
 fun main(args: Array<String>) {
 
-    val votes = mapOf(
-            People.STEVE to mapOf(
-                    Place.WRESTLERS to 5,
-                    Place.FORT_SAINT_GEORGE to 5
-            ),
-            People.DAVID_W to mapOf(
-                    Place.HAYMAKERS to 3,
-                    Place.WRESTLERS to 3,
-                    Place.FORT_SAINT_GEORGE to 4
-            ),
-            People.JAMES_G to mapOf(
-                    Place.WRESTLERS to 5,
-                    Place.FORT_SAINT_GEORGE to 5
-            ),
-            People.ANDRE to mapOf(
-                    Place.FORT_SAINT_GEORGE to 5,
-                    Place.GREEN_DRAGON to 5
-            ),
-            People.BENITA to mapOf(
-                    Place.WRESTLERS to 5,
-                    Place.THE_OLD_SPRING to 5
-            ),
-            People.CHRISTOPH to mapOf(
-                    Place.THE_OLD_SPRING to 5,
-                    Place.FORT_SAINT_GEORGE to 5
-            ),
-            People.KATIE to mapOf(
-                    Place.WRESTLERS to 3,
-                    Place.THE_OLD_SPRING to 4,
-                    Place.POLONIA to 3
-            )
+    val votes: List<Vote> = listOf(
+            STEVE.voted {
+                5 to WRESTLERS
+                5 to FORT_SAINT_GEORGE
+            },
+            DAVID_W.voted {
+                3 to HAYMAKERS
+                3 to WRESTLERS
+                4 to FORT_SAINT_GEORGE
+            },
+            JAMES_G.voted {
+                5 to WRESTLERS
+                5 to FORT_SAINT_GEORGE
+            },
+            ANDRE.voted {
+                5 to FORT_SAINT_GEORGE
+                5 to GREEN_DRAGON
+            },
+            BENITA.voted {
+                5 to WRESTLERS
+                5 to THE_OLD_SPRING
+            },
+            CHRISTOPH.voted {
+                5 to THE_OLD_SPRING
+                5 to FORT_SAINT_GEORGE
+            },
+            KATIE.voted {
+                3 to WRESTLERS
+                4 to THE_OLD_SPRING
+                3 to POLONIA
+            },
+            KAI.voted { },
+            XAVI.voted { },
+            JON.voted { },
+            BOB.voted { },
+            ARTEM.voted { },
+            HUW.voted { },
+            DAVID_B.voted { },
+            FELIX.voted { }
     )
 
-    val groups = GroupSplitter(12).splitGroups(listOf(
-            People.KAI,
-            People.CHRISTOPH,
-            People.JAMES_G,
-            People.XAVI,
-            People.JON,
-            People.BOB,
-            People.ARTEM,
-            People.DAVID_W,
-            People.HUW,
-            People.KATIE,
-            People.STEVE,
-            People.DAVID_B,
-            People.BENITA,
-            People.ANDRE,
-            People.FELIX
-    ))
+    val groups = GroupSplitter(12).splitGroups(votes.map { it.person })
 
-    val groupVotes = consolidateGroupVotes(groups, votes)
+    val voteMap = votes
+            .map { it.person to it.vote }
+            .toMap()
+    val groupVotes = consolidateGroupVotes(groups, voteMap)
 
     runVote(groupVotes)
 
 }
 
-private fun runVote(groupVotes : Map<List<People>, Map<Place, Int>>){
+private fun runVote(groupVotes: Map<List<People>, Map<Place, Int>>) {
     val voters = groupVotes.mapValues { WeightedRandomVoter() }
     val groupWinners = mutableMapOf<List<People>, Place>()
 
@@ -75,7 +91,7 @@ private fun runVote(groupVotes : Map<List<People>, Map<Place, Int>>){
         val winners = mutableSetOf<Place>()
         for ((people, voter) in voters) {
             val winner = voter.runVote(StandardVoteInput(groupVotes.getOrDefault(people, mapOf<Place, Int>())))
-            if (winners.contains(winner)){
+            if (winners.contains(winner)) {
                 complete = false
             }
             groupWinners[people] = winner
