@@ -80,23 +80,17 @@ fun main(args: Array<String>) {
     val groupVotes = consolidateGroupVotes(groups, voteMap)
 
     runVote(groupVotes)
-
 }
 
 private fun runVote(groupVotes: Map<Group, Map<Place, Int>>) {
     val voters = groupVotes.mapValues { WeightedRandomVoter() }
 
-    var complete = false
-    while (!complete) {
-        complete = true
-        val winners = mutableSetOf<Place>()
-        for ((people, voter) in voters) {
-            val winner = voter.runVote(StandardVoteInput(groupVotes.getOrDefault(people, mapOf<Place, Int>())))
-            if (winners.contains(winner)) {
-                complete = false
-            }
-            winners.add(winner)
-        }
+    val winners = mutableSetOf<Place>()
+    for ((group, voter) in voters) {
+        val votes = groupVotes[group]!!.toMutableMap()
+        winners.forEach { votes.remove(it) }
+        val winner = voter.runVote(StandardVoteInput(votes))
+        winners.add(winner)
     }
 
     voters.forEach({ (group, voter) ->
