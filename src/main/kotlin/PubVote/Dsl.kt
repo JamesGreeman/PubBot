@@ -8,15 +8,8 @@ class InvalidInputException(message: String) : RuntimeException(message)
 class Vote(val person: People) {
     val vote = hashMapOf<Place, Int>()
 
-    operator fun Place.plus(count: Int) {
-        vote[this] = count
-        if (vote.values.sum() > 10) {
-            throw InvalidInputException("$person has cast more than 10 total votes")
-        }
-    }
-
-    infix fun Int.to(place: Place) {
-        vote[place] = this
+    operator fun Place.plusAssign(count: Int) {
+        vote.merge(this, count, Int::plus)
         if (vote.values.sum() > 10) {
             throw InvalidInputException("$person has cast more than 10 total votes")
         }

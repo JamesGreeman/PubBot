@@ -31,34 +31,34 @@ fun main(args: Array<String>) {
 
     val votes: List<Vote> = listOf(
             STEVE.voted {
-                5 to WRESTLERS
-                5 to FORT_SAINT_GEORGE
+                WRESTLERS += 5
+                FORT_SAINT_GEORGE += 5
             },
             DAVID_W.voted {
-                3 to HAYMAKERS
-                3 to WRESTLERS
-                4 to FORT_SAINT_GEORGE
+                HAYMAKERS += 3
+                WRESTLERS += 3
+                FORT_SAINT_GEORGE += 4
             },
             JAMES_G.voted {
-                5 to WRESTLERS
-                5 to FORT_SAINT_GEORGE
+                WRESTLERS += 5
+                FORT_SAINT_GEORGE += 5
             },
             ANDRE.voted {
-                5 to FORT_SAINT_GEORGE
-                5 to GREEN_DRAGON
+                FORT_SAINT_GEORGE += 5
+                GREEN_DRAGON += 5
             },
             BENITA.voted {
-                5 to WRESTLERS
-                5 to THE_OLD_SPRING
+                WRESTLERS += 5
+                THE_OLD_SPRING += 5
             },
             CHRISTOPH.voted {
-                5 to THE_OLD_SPRING
-                5 to FORT_SAINT_GEORGE
+                THE_OLD_SPRING += 5
+                FORT_SAINT_GEORGE += 5
             },
             KATIE.voted {
-                3 to WRESTLERS
-                4 to THE_OLD_SPRING
-                3 to POLONIA
+                WRESTLERS += 3
+                THE_OLD_SPRING += 4
+                POLONIA += 3
             },
             KAI.voted { },
             XAVI.voted { },
