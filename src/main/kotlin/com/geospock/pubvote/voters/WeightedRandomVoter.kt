@@ -3,13 +3,14 @@ package com.geospock.pubvote.voters
 import com.geospock.pubvote.places.Place
 import java.util.Random
 
-class WeightedRandomVoter() : Voter<StandardVoteInput> {
+class WeightedRandomVoter : Voter<StandardVoteInput> {
 
-    private val output = StringBuilder();
+    private val output = StringBuilder()
+    var choice: Place = Place.NONE
+        private set
 
     override fun runVote(input: StandardVoteInput): Place {
         output.setLength(0)
-        var choice: Place = Place.NONE
         val totalVotes = input.votes.values.sum()
 
         if (totalVotes == 0) {
@@ -65,18 +66,20 @@ class WeightedRandomVoter() : Voter<StandardVoteInput> {
             line3.append("|")
         })
 
-        output.appendln("Random number is: $value")
-        output.appendln(line0)
-        output.appendln(line1)
-        output.appendln(line2)
-        output.appendln(line3)
-        output.appendln(line4)
-        output.appendln(key)
+        with(output) {
+            appendln("Random number is: $value")
+            appendln(line0)
+            appendln(line1)
+            appendln(line2)
+            appendln(line3)
+            appendln(line4)
+            appendln(key)
+        }
 
         return choice
     }
 
-    override fun getOutput() : String {
+    override fun getOutput(): String {
         return output.toString()
     }
 

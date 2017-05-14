@@ -27,6 +27,8 @@ import com.geospock.pubvote.places.Place.WRESTLERS
 import com.geospock.pubvote.voters.StandardVoteInput
 import com.geospock.pubvote.voters.WeightedRandomVoter
 
+typealias Group = List<People>
+
 fun main(args: Array<String>) {
 
     val votes: List<Vote> = listOf(
@@ -81,9 +83,8 @@ fun main(args: Array<String>) {
 
 }
 
-private fun runVote(groupVotes: Map<List<People>, Map<Place, Int>>) {
+private fun runVote(groupVotes: Map<Group, Map<Place, Int>>) {
     val voters = groupVotes.mapValues { WeightedRandomVoter() }
-    val groupWinners = mutableMapOf<List<People>, Place>()
 
     var complete = false
     while (!complete) {
@@ -94,28 +95,24 @@ private fun runVote(groupVotes: Map<List<People>, Map<Place, Int>>) {
             if (winners.contains(winner)) {
                 complete = false
             }
-            groupWinners[people] = winner
             winners.add(winner)
         }
     }
 
-    groupWinners.forEach({ (people, place) ->
-        println(voters[people]?.getOutput())
-        println("$people are going to $place")
+    voters.forEach({ (group, voter) ->
+        println(voter.getOutput())
+        println("$group are going to ${voter.choice}")
     })
 }
 
-private fun consolidateGroupVotes(groups: List<List<People>>, votes: Map<People, Map<Place, Int>>): MutableMap<List<People>, Map<Place, Int>> {
-    val groupVotes = mutableMapOf<List<People>, Map<Place, Int>>()
-    for (group in groups) {
+private fun consolidateGroupVotes(groups: List<Group>, votes: Map<People, Map<Place, Int>>): Map<Group, Map<Place, Int>> {
+    return groups.map { group ->
         val totals = mutableMapOf<Place, Int>()
         group.forEach {
-            votes[it]?.forEach { (place, value) ->
-                val current = totals.getOrDefault(place, 0)
-                totals.put(place, current + value)
+            votes[it]!!.forEach { (place, value) ->
+                totals.merge(place, value, Int::plus)
             }
         }
-        groupVotes.put(group, totals)
-    }
-    return groupVotes
+        group to totals
+    }.toMap()
 }
