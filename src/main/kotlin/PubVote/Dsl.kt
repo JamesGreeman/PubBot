@@ -16,7 +16,7 @@ class Vote(val person: People) {
     }
 }
 
-fun People.voted(init: Vote.() -> Unit): Vote {
+infix fun People.voted(init: Vote.() -> Unit): Vote {
     val vote = Vote(this)
     vote.init()
     return vote

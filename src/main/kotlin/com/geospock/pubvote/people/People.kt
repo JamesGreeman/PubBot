@@ -22,5 +22,6 @@ enum class People {
     STEVE,
     HUW,
     BENITA,
-    DAN
+    DAN,
+    CHARLES
 }
