@@ -23,5 +23,8 @@ enum class People {
     HUW,
     BENITA,
     DAN,
-    CHARLES
+    CHARLES,
+    THEODORA,
+    CAMERON,
+    ALISTAIR
 }
