@@ -10,5 +10,6 @@ enum class Place {
     FORT_SAINT_GEORGE,
     GREEN_DRAGON,
     POLONIA,
+    THE_WATERMAN,
     NONE
 }

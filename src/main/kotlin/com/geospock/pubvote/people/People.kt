@@ -24,5 +24,7 @@ enum class People {
     BENITA,
     DAN,
     CHARLES,
+    THEODORA,
+    CAMERON,
     ALISTAIR
 }

@@ -2,26 +2,7 @@ package PubVote
 
 import com.geospock.pubvote.GroupSplitter
 import com.geospock.pubvote.people.People
-import com.geospock.pubvote.people.People.ANDRE
-import com.geospock.pubvote.people.People.ARTEM
-import com.geospock.pubvote.people.People.BENITA
-import com.geospock.pubvote.people.People.CHARLES
-import com.geospock.pubvote.people.People.CHRISTOPH
-import com.geospock.pubvote.people.People.DAVID_B
-import com.geospock.pubvote.people.People.DAVID_W
-import com.geospock.pubvote.people.People.DOM
-import com.geospock.pubvote.people.People.JAMES_G
-import com.geospock.pubvote.people.People.JON
-import com.geospock.pubvote.people.People.KAI
-import com.geospock.pubvote.people.People.KATIE
-import com.geospock.pubvote.people.People.STEVE
-import com.geospock.pubvote.people.People.XAVI
 import com.geospock.pubvote.places.Place
-import com.geospock.pubvote.places.Place.FORT_SAINT_GEORGE
-import com.geospock.pubvote.places.Place.HAYMAKERS
-import com.geospock.pubvote.places.Place.POLONIA
-import com.geospock.pubvote.places.Place.THE_OLD_SPRING
-import com.geospock.pubvote.places.Place.WRESTLERS
 import com.geospock.pubvote.voters.StandardVoteInput
 import com.geospock.pubvote.voters.WeightedRandomVoter
 
@@ -30,47 +11,49 @@ typealias Group = List<People>
 fun main(args: Array<String>) {
 
     val votes: List<Vote> = listOf(
-            STEVE voted {
-                WRESTLERS += 10
+            People.STEVE voted {
+                Place.WRESTLERS += 10
             },
-            DAVID_W voted {
-                HAYMAKERS += 5
-                WRESTLERS += 5
+            People.KAI voted {
+                Place.WRESTLERS += 5
+                Place.POLONIA += 5
             },
-            KAI voted {
-                THE_OLD_SPRING +=5
-                POLONIA += 5
+            People.JAMES_G voted {
+                Place.WRESTLERS += 5
+                Place.HAYMAKERS += 5
             },
-            JAMES_G voted {
-                WRESTLERS += 5
-                FORT_SAINT_GEORGE += 5
+            People.ANDRE voted {
+                Place.WRESTLERS += 5
+                Place.HAYMAKERS +=5
             },
-            ANDRE voted {
-                WRESTLERS += 5
-                THE_OLD_SPRING += 5
+            People.BOB voted {
+                Place.HAYMAKERS += 10
             },
-            BENITA voted {
-                WRESTLERS += 5
-                THE_OLD_SPRING += 5
+            People.XAVI voted {
+                Place.WRESTLERS += 5
+                Place.POLONIA
             },
-            XAVI voted {
-                POLONIA += 10
+            People.SAM voted {
+                Place.WRESTLERS += 10
             },
-            CHRISTOPH voted {
-                POLONIA += 10
+            People.CHRISTOPH voted {
+                Place.FORT_SAINT_GEORGE += 10
             },
-            KATIE voted {
-                WRESTLERS += 10
+            People.KATIE voted {
+                Place.WRESTLERS += 10
             },
-            DOM voted {
-                THE_OLD_SPRING += 10
+            People.DOM voted {
+                Place.WRESTLERS += 10
             },
-            ARTEM voted {
-                POLONIA += 10
+            People.ALISTAIR voted {
+                Place.WRESTLERS += 2
+                Place.THE_OLD_SPRING += 2
+                Place.FORT_SAINT_GEORGE += 2
+                Place.GREEN_DRAGON += 2
+                Place.POLONIA += 2
             },
-            JON voted { },
-            CHARLES voted { },
-            DAVID_B voted { }
+            People.JON voted {},
+            People.HUW voted {}
     )
 
     val groups = GroupSplitter(10).splitGroups(votes.map { it.person })
@@ -103,6 +86,8 @@ private fun runVote(groupVotes: Map<Group, Map<Place, Int>>) {
     voters.forEach({ (group, voter) ->
         println(voter.getOutput())
         println("$group are going to ${voter.choice}")
+        println()
+        println()
     })
 }
 
