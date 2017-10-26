@@ -14,9 +14,8 @@ class GroupSplitter(private val maxGroupSize: Int) {
 
         val listToSplit = attending.toMutableList()
         Collections.shuffle(listToSplit)
-        val split = listToSplit.withIndex()
+        return listToSplit.withIndex()
                 .groupBy { it.index / groupSize }
                 .map { it.value.map { it.value } }
-        return split
     }
 }

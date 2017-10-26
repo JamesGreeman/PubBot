@@ -68,11 +68,13 @@ class WeightedRandomVoter : Voter<StandardVoteInput> {
 
         with(output) {
             appendln("Random number is: $value")
+            appendln("```")
             appendln(line0)
             appendln(line1)
             appendln(line2)
             appendln(line3)
             appendln(line4)
+            appendln("```")
             appendln(key)
         }
 

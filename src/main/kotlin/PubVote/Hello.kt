@@ -85,7 +85,7 @@ private fun runVote(groupVotes: Map<Group, Map<Place, Int>>) {
 
     voters.forEach({ (group, voter) ->
         println(voter.getOutput())
-        println("$group are going to ${voter.choice}")
+        println("$group (${group.size} people) are going to ${voter.choice} ${voter.choice.slackString}")
         println()
         println()
     })
