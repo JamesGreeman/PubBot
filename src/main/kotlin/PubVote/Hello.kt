@@ -85,10 +85,16 @@ private fun runVote(groupVotes: Map<Group, Map<Place, Int>>) {
 
     voters.forEach({ (group, voter) ->
         println(voter.getOutput())
-        println("$group (${group.size} people) are going to ${voter.choice} ${voter.choice.slackString}")
+        println("${group.prettify()} are going to *${voter.choice.prettyName}* ${voter.choice.slackString}")
         println()
         println()
     })
+}
+
+
+private fun Group.prettify() : String {
+    val handleList = this.joinToString(", ") { "@${it.slackHandle}" }
+    return "$handleList (Group size is *${this.size}*)"
 }
 
 private fun consolidateGroupVotes(groups: List<Group>, votes: Map<People, Map<Place, Int>>): Map<Group, Map<Place, Int>> {

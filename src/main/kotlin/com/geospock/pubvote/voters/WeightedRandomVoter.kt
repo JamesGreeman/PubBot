@@ -32,7 +32,7 @@ class WeightedRandomVoter : Voter<StandardVoteInput> {
         input.votes.forEach({ (place, vote) ->
             key.append(id)
             key.append(" - ")
-            key.append(place)
+            key.append(place.prettyName)
             key.append("\n")
             currentTotal += vote
 

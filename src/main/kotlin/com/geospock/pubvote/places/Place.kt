@@ -3,14 +3,14 @@ package com.geospock.pubvote.places
 /**
  * @author James
  */
-enum class Place(val slackString: String) {
-    HAYMAKERS(":ear_of_rice:"),
-    WRESTLERS(":wrestlers:"),
-    THE_OLD_SPRING(":old_spring:"),
-    FORT_SAINT_GEORGE(":european_castle:"),
-    GREEN_DRAGON(":dragon_face:"),
-    POLONIA(":flag-pl:"),
-    THE_WATERMAN(":boat:"),
-    NONE("")
+enum class Place(val prettyName: String, val slackString: String) {
+    HAYMAKERS("Haymakers", ":ear_of_rice:"),
+    WRESTLERS("The Wrestlers", ":wrestlers:"),
+    THE_OLD_SPRING("The Old Spring", ":old_spring:"),
+    FORT_SAINT_GEORGE("Fort Saint George", ":european_castle:"),
+    GREEN_DRAGON("The Green Dragon", ":dragon_face:"),
+    POLONIA("Polonia Klub", ":flag-pl:"),
+    THE_WATERMAN("The Waterman", ":boat:"),
+    NONE("None", "")
 
 }
