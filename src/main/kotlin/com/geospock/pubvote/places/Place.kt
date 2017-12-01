@@ -8,7 +8,7 @@ enum class Place(val prettyName: String, val slackString: String) {
     WRESTLERS("The Wrestlers", ":wrestlers:"),
     THE_OLD_SPRING("The Old Spring", ":old_spring:"),
     FORT_SAINT_GEORGE("Fort Saint George", ":european_castle:"),
-    GREEN_DRAGON("The Green Dragon", ":dragon_face:"),
+    HOPBINE("The Hopbine", ":hop:"),
     POLONIA("Polonia Klub", ":flag-pl:"),
     THE_WATERMAN("The Waterman", ":boat:"),
     NONE("None", "")
