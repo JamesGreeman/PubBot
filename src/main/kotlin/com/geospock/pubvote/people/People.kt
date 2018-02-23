@@ -23,12 +23,18 @@ enum class People(val slackHandle: String) {
     HUW("huw"),
     BENITA("benita"),
     DAN("dansilk"),
-    DAVID_MB("davidmb"),
+    DAVID_MB("David Borwn"),
     CHARLES("charles"),
     ALISTAIR("alistair"),
     SAM_2("shusam"),
     FELIX_SG("felixsg"),
     TRUC("truc"),
     TOM("tom"),
-    ALAN("alan")
+    ALAN("alan"),
+    RICHARD("richard"),
+    MELANIE("melanie"),
+    BEN("ben"),
+    ISAAC("isaac"),
+    NICK("nick"),
+    IAN("ian")
 }
