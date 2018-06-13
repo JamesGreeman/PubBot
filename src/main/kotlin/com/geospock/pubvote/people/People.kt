@@ -26,7 +26,7 @@ enum class People(val slackHandle: String) {
     DAVID_MB("David Brown"),
     CHARLES("charles"),
     ALISTAIR("alistair"),
-    SAM_2("shusam"),
+    SAM_2("samc"),
     FELIX_SG("felixsg"),
     TRUC("truc"),
     TOM("tom"),
@@ -43,5 +43,6 @@ enum class People(val slackHandle: String) {
     NICOLA("nicola"),
     ALLEN("allen"),
     AMARIA("amaria"),
-    FIONA("fi")
+    FIONA("fi"),
+    SAYURI("sayuri")
 }
