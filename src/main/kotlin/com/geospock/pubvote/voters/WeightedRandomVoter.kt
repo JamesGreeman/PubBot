@@ -6,15 +6,14 @@ import java.util.Random
 class WeightedRandomVoter : Voter<StandardVoteInput> {
 
     private val output = StringBuilder()
-    var choice: Place = Place.NONE
-        private set
+    lateinit var choice: Place
 
     override fun runVote(input: StandardVoteInput): Place {
         output.setLength(0)
         val totalVotes = input.votes.values.sum()
 
         if (totalVotes == 0) {
-            output.appendln("No votes returned - cannot run vote, returning ${Place.NONE}")
+            output.appendln("No votes returned - cannot run vote")
             return choice
         }
 

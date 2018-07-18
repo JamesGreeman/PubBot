@@ -10,12 +10,12 @@ class GroupSplitter(private val maxGroupSize: Int) {
 
     fun splitGroups(attending: Group): List<Group> {
         val groups = (attending.size + maxGroupSize - 1) / maxGroupSize
-        val groupSize = (attending.size + groups - 1) / groups
 
         val listToSplit = attending.toMutableList()
         Collections.shuffle(listToSplit)
         return listToSplit.withIndex()
-                .groupBy { (it.index + 1) / groupSize }
-                .map { it.value.map { it.value } }
+                .groupBy {
+                    it.index % groups
+                }.map { it.value.map { it.value } }
     }
 }

@@ -11,7 +11,6 @@ enum class Place(val prettyName: String, val slackString: String) {
     HOPBINE("The Hopbine", ":hop:"),
     POLONIA("Polonia Klub", ":flag-pl:"),
     THE_WATERMAN("The Waterman", ":boat:"),
-    BURLEIGH_ARMS("The Burleigh Arms", ":muscle:"),
-    NONE("None", "")
+    BURLEIGH_ARMS("The Burleigh Arms", ":muscle:")
 
 }

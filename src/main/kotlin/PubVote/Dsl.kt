@@ -14,6 +14,15 @@ class Vote(val person: People) {
             throw InvalidInputException("$person has cast more than 10 total votes")
         }
     }
+
+    fun addVote(place: Place, count: Int) {
+        vote[place] = count
+    }
+
+    override fun toString(): String {
+        return "Vote(person=$person, vote=$vote)"
+    }
+
 }
 
 infix fun People.voted(init: Vote.() -> Unit): Vote {
