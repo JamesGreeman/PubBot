@@ -55,12 +55,11 @@ private fun runVote(groupVotes: Map<Group, Map<Place, Int>>) {
 
     voters.forEach({ (group, voter) ->
         println(voter.getOutput())
-        println("${group.prettify()} are going to *${voter.choice.prettyName}* ${voter.choice.slackString}")
+        println("${group.prettify()} are going to *${voter.choice.prettyName}* ${voter.choice.slackString} - @${group.first().slackHandle} is Group Leader.")
         println()
         println()
     })
-    println("IMPORTANT: Within your groups please decide who will be paying (and expensing the bill) and book a " +
-            "table if required.")
+    println("IMPORTANT: Group leaders - please ensure a table is booked if necessary and decide who will be paying.")
 }
 
 
