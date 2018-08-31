@@ -9,7 +9,7 @@ enum class People(val slackHandle: String, val role: Role = Role.PEON) {
     JON("jon", Role.ESMT),
     DAVID_W("david", Role.ESMT),
     JAMES_G("james"),
-    BOB("bob", Role.ESMT),
+    BOB("bob"),
     BENITA("benita", Role.ELT),
     DAN("dans"),
     XAVI("xavi"),
