@@ -20,7 +20,7 @@ enum class People(val slackHandle: String, val role: Role) {
     DOM("dom", Role.PEON),
     DAVID_BI("davidbi", Role.PEON),
     DAVID_MB("DavidBr", Role.CSMT),
-    CHARLES("charles", Role.ESMT),
+    CHARLES("charles", Role.PEON),
     AIMI("aimi", Role.PEON),
     ALISTAIR("alistair", Role.PEON),
     SAM_2("samc", Role.PEON),
