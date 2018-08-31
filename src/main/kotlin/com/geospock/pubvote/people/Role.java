@@ -1,8 +1,8 @@
 package com.geospock.pubvote.people;
 
 public enum Role {
-    ELT,
-    CSMT,
-    ESMT,
-    PEON
+    EXECUTIVE_LEADERSHIP_TEAM,
+    COMMERCIAL_SENIOR_MANAGEMENT_TEAM,
+    ENGINEERING_SENIOR_MANAGEMENT_TEAM,
+    PEOPLE_EARTHLINGS_OTHERS_NICOLA
 }

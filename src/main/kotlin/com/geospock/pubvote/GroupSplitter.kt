@@ -14,10 +14,10 @@ class GroupSplitter(private val maxGroupSize: Int) {
         val groups = (1 .. (attending.size + maxGroupSize - 1) / maxGroupSize)
                 .map { mutableListOf<People>() }
 
-        groups.addFromRole(attending, Role.ELT)
-        groups.addFromRole(attending, Role.CSMT)
-        groups.addFromRole(attending, Role.ESMT)
-        groups.addFromRole(attending, Role.PEON)
+        groups.addFromRole(attending, Role.EXECUTIVE_LEADERSHIP_TEAM)
+        groups.addFromRole(attending, Role.COMMERCIAL_SENIOR_MANAGEMENT_TEAM)
+        groups.addFromRole(attending, Role.ENGINEERING_SENIOR_MANAGEMENT_TEAM)
+        groups.addFromRole(attending, Role.PEOPLE_EARTHLINGS_OTHERS_NICOLA)
 
         return groups
     }
@@ -27,8 +27,8 @@ class GroupSplitter(private val maxGroupSize: Int) {
         Collections.shuffle(peopleToAdd)
 
         peopleToAdd.forEach {
-            this.minBy { it.size }!!
-                    .add(it)
+            this.minBy { it.size }?.add(it) 
+                    ?: throw IllegalStateException("Needed a group to add to but did not find one.")
         }
 
     }
