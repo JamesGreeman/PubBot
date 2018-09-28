@@ -26,7 +26,7 @@ enum class People(val slackHandle: String, val role: Role = Role.PEOPLE_EARTHLIN
     SAM_2("samc"),
     FELIX_SG("felixsg", Role.ENGINEERING_SENIOR_MANAGEMENT_TEAM),
     TRUC("truc"),
-    TOM("Tom Ba"),
+    TOM("TomBa"),
     ALAN("alan"),
     RICHARD("richard", Role.EXECUTIVE_LEADERSHIP_TEAM),
     MELANIE("melanie"),
@@ -48,5 +48,7 @@ enum class People(val slackHandle: String, val role: Role = Role.PEOPLE_EARTHLIN
     SANGEETHA("sangeetha"),
     FLAVIA("Flavia"),
     CHLOE("Chloe"),
-    TOMC("Tom Co")
+    TOMC("TomCo"),
+    SERGEJ("sergej"),
+    BEN_N("BenNo")
 }
