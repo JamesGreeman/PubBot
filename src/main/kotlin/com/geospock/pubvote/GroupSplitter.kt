@@ -18,8 +18,7 @@ class GroupSplitter(private val maxGroupSize: Int) {
 
         with(groups) {
             addFromRole(attending, Role.EXECUTIVE_LEADERSHIP_TEAM)
-            addFromRole(attending, Role.COMMERCIAL_SENIOR_MANAGEMENT_TEAM)
-            addFromRole(attending, Role.ENGINEERING_SENIOR_MANAGEMENT_TEAM)
+            addFromRole(attending, Role.MANAGEMENT)
             addFromRole(attending, Role.PEOPLE_EARTHLINGS_OTHERS_NICOLA)
         }
         return groups
