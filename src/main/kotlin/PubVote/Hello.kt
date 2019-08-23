@@ -131,9 +131,7 @@ fun main(args: Array<String>) {
 
     val groups = GroupSplitter(maxGroupSize).splitGroups(votes.map { it.person })
 
-    val voteMap = votes
-            .map { it.person to it.vote }
-            .toMap()
+    val voteMap = votes.associate { (person, vote) -> person to vote }
     val groupVotes = consolidateGroupVotes(groups, voteMap)
 
     runVote(groupVotes)
@@ -148,7 +146,7 @@ private fun runVote(groupVotes: Map<Group, Map<Place, Int>>) {
         complete = true
         val winners = mutableSetOf<Place>()
         for ((people, voter) in voters) {
-            val winner = voter.runVote(StandardVoteInput(groupVotes.getOrDefault(people, mapOf<Place, Int>())))
+            val winner = voter.runVote(StandardVoteInput(groupVotes.getOrDefault(people, emptyMap())))
             if (winners.contains(winner)) {
                 complete = false
             }
