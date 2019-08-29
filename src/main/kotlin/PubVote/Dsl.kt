@@ -6,8 +6,7 @@ import java.lang.IllegalArgumentException
 
 class InvalidInputException(message: String) : RuntimeException(message)
 
-class Vote(val person: People) {
-    val vote = hashMapOf<Place, Int>()
+data class Vote(val person: People, val vote: MutableMap<Place, Int> = mutableMapOf()) {
 
     operator fun Place.plusAssign(count: Int) {
         if (count <= 0) {

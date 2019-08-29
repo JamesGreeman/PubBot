@@ -3,7 +3,36 @@ package PubVote
 import com.geospock.pubvote.GroupSplitter
 import com.geospock.pubvote.collectors.CommandLineVoteCollector
 import com.geospock.pubvote.people.People
+import com.geospock.pubvote.people.People.AARON
+import com.geospock.pubvote.people.People.ANIBAL
+import com.geospock.pubvote.people.People.ARREN
+import com.geospock.pubvote.people.People.BOB
+import com.geospock.pubvote.people.People.CHARLES
+import com.geospock.pubvote.people.People.FELIX_M
+import com.geospock.pubvote.people.People.GARETH
+import com.geospock.pubvote.people.People.GEORGE_P
+import com.geospock.pubvote.people.People.HUGO
+import com.geospock.pubvote.people.People.ISRAEL
+import com.geospock.pubvote.people.People.JON
+import com.geospock.pubvote.people.People.JUANJO
+import com.geospock.pubvote.people.People.KAI
+import com.geospock.pubvote.people.People.KATIE
+import com.geospock.pubvote.people.People.NICK
+import com.geospock.pubvote.people.People.PAULO
+import com.geospock.pubvote.people.People.REBECCA
+import com.geospock.pubvote.people.People.SAM_C
+import com.geospock.pubvote.people.People.TOM_B
+import com.geospock.pubvote.people.People.TOM_C
+import com.geospock.pubvote.people.People.TRUC
 import com.geospock.pubvote.places.Place
+import com.geospock.pubvote.places.Place.BURLEIGH_ARMS
+import com.geospock.pubvote.places.Place.FORT_SAINT_GEORGE
+import com.geospock.pubvote.places.Place.HAYMAKERS
+import com.geospock.pubvote.places.Place.OLD_SPRING
+import com.geospock.pubvote.places.Place.OTHERSYDE
+import com.geospock.pubvote.places.Place.POLONIA
+import com.geospock.pubvote.places.Place.WATERMAN
+import com.geospock.pubvote.places.Place.WRESTLERS
 import com.geospock.pubvote.voters.StandardVoteInput
 import com.geospock.pubvote.voters.WeightedRandomVoter
 
@@ -13,24 +42,96 @@ fun main(args: Array<String>) {
     val useCommandline = false
     val maxGroupSize = 8
 
-    val votes: List<Vote> = if (useCommandline){
+    val votes: List<Vote> = if (useCommandline) {
         CommandLineVoteCollector().collectVotes()
     } else {
         listOf(
-                People.KAI voted {
-                    Place.HAYMAKERS += 10
+                KAI voted {
                 },
-                People.JAMES_G voted {
-                    Place.HAYMAKERS += 10
+                JON voted {
+                },
+                BOB voted {
+                    OTHERSYDE += 10
+                },
+                FELIX_M voted {
+                    OTHERSYDE += 10
+                },
+                CHARLES voted {
+                },
+                SAM_C voted {
+                    BURLEIGH_ARMS += 3
+                    OTHERSYDE += 6
+                },
+                TOM_B voted {
+                    WRESTLERS += 3
+                    POLONIA += 1
+                    HAYMAKERS += 6
+                },
+                TRUC voted {
+                    WRESTLERS += 5
+                    HAYMAKERS += 5
+                },
+                NICK voted {
+                    OTHERSYDE += 10
+                },
+                TOM_C voted {
+                },
+                HUGO voted {
+                    WRESTLERS += 6
+                    OLD_SPRING += 4
+                },
+                ARREN voted {
+                    BURLEIGH_ARMS += 10
+                },
+                ISRAEL voted {
+                    FORT_SAINT_GEORGE += 5
+                    OLD_SPRING += 5
+                },
+                KATIE voted {
+                    WRESTLERS += 5
+                    HAYMAKERS += 5
+                },
+                AARON voted {
+                },
+                PAULO voted {
+                    WRESTLERS += 3
+                    HAYMAKERS += 3
+                    OLD_SPRING += 3
+                },
+                GEORGE_P voted {
+                    WRESTLERS += 3
+                    WATERMAN += 3
+                    HAYMAKERS += 1
+                    OLD_SPRING += 3
+                },
+                REBECCA voted {
+                    WRESTLERS += 5
+                    OLD_SPRING += 5
+                },
+                JUANJO voted {
+                    WRESTLERS += 5
+                    OLD_SPRING += 5
+                },
+                JUANJO voted {
+                    HAYMAKERS += 4
+                    OTHERSYDE += 6
+                },
+                ANIBAL voted {
+                    WRESTLERS += 2
+                    HAYMAKERS += 4
+                    OLD_SPRING += 4
+                },
+                GARETH voted {
+                    WATERMAN += 2
+                    HAYMAKERS += 4
+                    OTHERSYDE += 4
                 }
         )
     }
 
     val groups = GroupSplitter(maxGroupSize).splitGroups(votes.map { it.person })
 
-    val voteMap = votes
-            .map { it.person to it.vote }
-            .toMap()
+    val voteMap = votes.associate { (person, vote) -> person to vote }
     val groupVotes = consolidateGroupVotes(groups, voteMap)
 
     runVote(groupVotes)
@@ -45,7 +146,7 @@ private fun runVote(groupVotes: Map<Group, Map<Place, Int>>) {
         complete = true
         val winners = mutableSetOf<Place>()
         for ((people, voter) in voters) {
-            val winner = voter.runVote(StandardVoteInput(groupVotes.getOrDefault(people, mapOf<Place, Int>())))
+            val winner = voter.runVote(StandardVoteInput(groupVotes.getOrDefault(people, emptyMap())))
             if (winners.contains(winner)) {
                 complete = false
             }
