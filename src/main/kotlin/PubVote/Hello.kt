@@ -3,27 +3,7 @@ package PubVote
 import com.geospock.pubvote.GroupSplitter
 import com.geospock.pubvote.collectors.CommandLineVoteCollector
 import com.geospock.pubvote.people.People
-import com.geospock.pubvote.people.People.AARON
-import com.geospock.pubvote.people.People.ANIBAL
-import com.geospock.pubvote.people.People.ARREN
-import com.geospock.pubvote.people.People.BOB
-import com.geospock.pubvote.people.People.CHARLES
-import com.geospock.pubvote.people.People.FELIX_M
-import com.geospock.pubvote.people.People.GARETH
-import com.geospock.pubvote.people.People.GEORGE_P
-import com.geospock.pubvote.people.People.HUGO
-import com.geospock.pubvote.people.People.ISRAEL
-import com.geospock.pubvote.people.People.JON
-import com.geospock.pubvote.people.People.JUANJO
-import com.geospock.pubvote.people.People.KAI
-import com.geospock.pubvote.people.People.KATIE
-import com.geospock.pubvote.people.People.NICK
-import com.geospock.pubvote.people.People.PAULO
-import com.geospock.pubvote.people.People.REBECCA
-import com.geospock.pubvote.people.People.SAM_C
-import com.geospock.pubvote.people.People.TOM_B
-import com.geospock.pubvote.people.People.TOM_C
-import com.geospock.pubvote.people.People.TRUC
+import com.geospock.pubvote.people.People.*
 import com.geospock.pubvote.places.Place
 import com.geospock.pubvote.places.Place.BURLEIGH_ARMS
 import com.geospock.pubvote.places.Place.FORT_SAINT_GEORGE
@@ -48,83 +28,72 @@ fun main(args: Array<String>) {
         listOf(
                 KAI voted {
                 },
-                JON voted {
+                JAMES_G voted {
+                    WRESTLERS += 10
                 },
-                BOB voted {
-                    OTHERSYDE += 10
+                XAVI voted {
+                    HAYMAKERS += 10
                 },
-                FELIX_M voted {
-                    OTHERSYDE += 10
+                SAM_S voted {
+                },
+                DAVID_BI voted {
+                    HAYMAKERS += 10
                 },
                 CHARLES voted {
                 },
                 SAM_C voted {
-                    BURLEIGH_ARMS += 3
-                    OTHERSYDE += 6
+                    BURLEIGH_ARMS += 6
+                    OLD_SPRING += 3
                 },
-                TOM_B voted {
-                    WRESTLERS += 3
-                    POLONIA += 1
-                    HAYMAKERS += 6
-                },
-                TRUC voted {
-                    WRESTLERS += 5
-                    HAYMAKERS += 5
-                },
-                NICK voted {
-                    OTHERSYDE += 10
+                FELIX_SG voted {
+                    WRESTLERS += 10
                 },
                 TOM_C voted {
                 },
+                SERGEJ voted {
+                },
                 HUGO voted {
-                    WRESTLERS += 6
-                    OLD_SPRING += 4
+                    WRESTLERS += 10
+                },
+                STEPHANIE voted {
+                    WRESTLERS += 10
                 },
                 ARREN voted {
-                    BURLEIGH_ARMS += 10
+                    WRESTLERS += 5
+                    BURLEIGH_ARMS += 5
                 },
-                ISRAEL voted {
-                    FORT_SAINT_GEORGE += 5
-                    OLD_SPRING += 5
-                },
-                KATIE voted {
+                SARAH voted {
                     WRESTLERS += 5
                     HAYMAKERS += 5
                 },
-                AARON voted {
+                KATIE voted {
+                    WRESTLERS += 10
+                },
+                AMY voted {
+                    WRESTLERS += 10
                 },
                 PAULO voted {
                     WRESTLERS += 3
                     HAYMAKERS += 3
-                    OLD_SPRING += 3
-                },
-                GEORGE_P voted {
-                    WRESTLERS += 3
-                    WATERMAN += 3
-                    HAYMAKERS += 1
-                    OLD_SPRING += 3
-                },
-                REBECCA voted {
-                    WRESTLERS += 5
-                    OLD_SPRING += 5
-                },
-                JUANJO voted {
-                    WRESTLERS += 5
-                    OLD_SPRING += 5
-                },
-                JUANJO voted {
-                    HAYMAKERS += 4
-                    OTHERSYDE += 6
-                },
-                ANIBAL voted {
-                    WRESTLERS += 2
-                    HAYMAKERS += 4
                     OLD_SPRING += 4
                 },
+                PRASANTH voted {
+
+                },
+                GEORGE_P voted {
+                    WRESTLERS += 10
+                },
+                JUANJO voted {
+                    WRESTLERS += 5
+                    OLD_SPRING += 5
+                },
+                CHRIS voted {
+                    WRESTLERS += 10
+                },
                 GARETH voted {
-                    WATERMAN += 2
-                    HAYMAKERS += 4
-                    OTHERSYDE += 4
+                    WRESTLERS += 2
+                    WATERMAN += 5
+                    HAYMAKERS += 3
                 }
         )
     }

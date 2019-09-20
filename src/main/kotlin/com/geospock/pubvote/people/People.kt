@@ -18,7 +18,7 @@ enum class People(val slackHandle: String, val role: Role = Role.PEOPLE_EARTHLIN
     HUW("huw", Role.EXECUTIVE_LEADERSHIP_TEAM),
     NICOLA("nicola"),
     DOM("dom"),
-    DAVID_BI("davidbi"),
+    DAVID_BI("davidbinns"),
     DAVID_MB("DavidBr", Role.MANAGEMENT),
     CHARLES("charles"),
     ALISTAIR("alistair"),
@@ -51,7 +51,7 @@ enum class People(val slackHandle: String, val role: Role = Role.PEOPLE_EARTHLIN
     KENTA("kenta"),
     ARREN("arren"),
     MAJDI("majdi"),
-    SARAH("sarahh"),
+    SARAH("Sarah Hunter"),
     SAMIR("samir", Role.MANAGEMENT),
     STEPHANIE("stephanie"),
     ISRAEL("israel"),
@@ -66,9 +66,10 @@ enum class People(val slackHandle: String, val role: Role = Role.PEOPLE_EARTHLIN
     KAREN("karen"),
     AARON("Aaron Ridgewell"),
     PAULO("Paulo Ferreira"),
+    PRASANTH("Prasanth Nair"),
     GEORGE_P("George Phillips"),
-    REBECCA("Becky Langdon"),
     JUANJO("Juanjo Medina"),
     ANIBAL("Anibal Gonzalez"),
-    GARETH("Gareth Rogers")
+    GARETH("Gareth Rogers"),
+    CHRIS("Chris Harris")
 }
